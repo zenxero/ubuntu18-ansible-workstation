@@ -1,0 +1,59 @@
+---
+
+#
+# synology-autofs
+#
+# This task configures the autofs service for my synology shares.
+#
+
+# Install and configure autofs synology shares if the
+# configure_synology_shares variable is true
+- block:
+
+  - name: Install autofs packages
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - autofs
+      - nfs-common
+    notify:
+      - restart autofs
+
+  - name: Create directories
+    file:
+      path: "{{ item }}"
+      state: directory
+      mode: 0755
+    with_items:
+      - /etc/autofs
+      - /auto.master.d
+      - /synology
+      - /synology/archive
+      - /synology/games
+      - /synology/music
+      - /synology/photo
+      - /synology/video
+
+  - name: Configure autofs mounts
+    template:
+      src: templates/auto.direct
+      dest: /etc/autofs/auto.direct.j2
+      owner: root
+      group: root
+      mode: 0644
+    notify:
+      - restart autofs
+
+  - name: Configure auto.master.d
+    copy:
+      src: files/synology.autofs
+      dest: /etc/auto.master.d/synology.autofs
+      owner: root
+      group: root
+      mode: 0644
+    notify:
+      - restart autofs
+
+  when: configure_synology_shares

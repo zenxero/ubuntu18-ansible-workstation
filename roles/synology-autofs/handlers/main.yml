@@ -1,0 +1,13 @@
+---
+
+#
+# autofs service handler
+#
+# Restart only when changes are made.
+#
+
+- name: restart autofs
+  service:
+    name: autofs
+    state: restarted
+    enabled: yes

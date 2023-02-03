@@ -1,0 +1,108 @@
+---
+
+#
+# install-packages
+#
+# This task installs packages on the system.
+#
+
+- name: Install base packages
+  apt:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - apt-transport-https
+    - arc-theme
+    - avr-libc
+    - binutils-arm-none-eabi
+    - binutils-avr
+    - bmon
+    - bridge-utils
+    - build-essential
+    - ca-certificates
+    - chrome-gnome-shell
+    - colordiff
+    - cpufreqd
+    - cpufrequtils
+    - curl
+    - dconf-editor
+    - dfu-programmer
+    - dfu-util
+    - etherwake
+    - exfat-fuse
+    - exfat-utils
+    - flatpak
+    - gcc
+    - gcc-arm-none-eabi
+    - gcc-avr
+    - git
+    - gnome-software-plugin-flatpak
+    - gnome-tweak-tool
+    - gnome-weather
+    - gnupg-agent
+    - gsmartcontrol
+    - handbrake
+    - hardinfo
+    - htop
+    - iftop
+    - indicator-cpufreq
+    - input-utils
+    - iotop
+    - ipcalc
+    - kid3-qt
+    - libappindicator-dev
+    - libc++1
+    - libc++abi1
+    - libev-dev
+    - libextutils-depends-perl
+    - libextutils-pkgconfig-perl
+    - libgranite-dev
+    - libheif1
+    - libnewlib-arm-none-eabi
+    - libopenal1
+    - liferea
+    - lm-sensors
+    - meson
+    - ncdu
+    - netdiag
+    - net-tools
+    - nmon
+    - openconnect
+    - p7zip
+    - p7zip-rar
+    - powerwake
+    - psensor
+    - python3-pip
+    - rar
+    - rclone
+    - resolvconf
+    - screen
+    - screenfetch
+    - shutter
+    - smartmontools
+    - software-properties-common
+    - solaar
+    - solaar-gnome3
+    - speedometer
+    - ssh-askpass
+    - ssh-askpass-gnome
+    - tmux
+    - tree
+    - ubuntu-wallpapers-trusty
+    - ubuntu-wallpapers-utopic
+    - ubuntu-wallpapers-vivid
+    - ubuntu-wallpapers-wily
+    - ubuntu-wallpapers-xenial
+    - ubuntu-wallpapers-yakkety
+    - ubuntu-wallpapers-zesty
+    - unrar
+    - unzip
+    - valac
+    - vim
+    - vlc-plugin-fluidsynth
+    - wget
+    - xterm
+    - zip
+    - zsh
+    - zsh-syntax-highlighting

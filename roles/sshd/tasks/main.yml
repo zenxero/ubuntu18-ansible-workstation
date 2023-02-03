@@ -1,0 +1,40 @@
+---
+
+#
+# sshd
+#
+# This task configures the ssh server.
+#
+
+# All tasks are grouped in a block/when statement so that this only runs against an Ubuntu 18.04 system.
+- block:
+
+  # If allow_ssh is set to true, install ssh
+  - name: Install OpenSSH Server
+    apt:
+      name: openssh-server
+      state: latest
+    notify:
+      - restart ssh
+    when: allow_ssh
+
+  - name: Add sshd_config file
+    copy:
+      src: files/sshd_config
+      dest: /etc/ssh/sshd_config
+      owner: root
+      group: root
+      mode: 0644
+    notify:
+      - restart ssh
+    when: allow_ssh
+
+  # If allow_ssh is set to false, disable ssh
+  - name: Disable OpenSSH Server
+    service:
+      name: ssh
+      state: stopped
+      enabled: no
+    when: not allow_ssh
+
+  when: (ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04")

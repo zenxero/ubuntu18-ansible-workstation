@@ -1,0 +1,136 @@
+---
+
+#
+# setup-workstation.yml
+#
+# This playbook sets up the local Ubuntu system to my specifications.
+#
+
+- hosts: localhost
+  gather_facts: yes
+  connection: local
+  roles:
+    - remove-packages
+    - install-packages
+    - extra-repos
+    - system-config-files
+    - sshd
+    - ufw-firewall
+    - synology-autofs
+  vars:
+    # Enable high refresh rate?
+    high_refresh: True
+
+    # If you enable the high refresh rate option,
+    # set the monitor refresh rate here
+    refresh_rate: 144
+
+    # System release update behavior:
+    # Choices are:
+    # - never - Never checks for a new Ubuntu release on update
+    # - lts - Only check for new LTS Ubuntu releases on update
+    # - normal - Will check for any new Ubuntu release on update
+    release_update_type: lts
+
+    # Enable UFW firewall?
+    use_firewall: True
+
+    # If you enabled the use_firewall option,
+    # allow incoming SSH through firewall?
+    allow_ssh: False
+
+    # Configure Synology NAS autofs Shares?
+    # If yes, set the IP of the Synology NAS
+    configure_synology_shares: False
+    synology_ip:
+
+    # Install Audacity PPA and package?
+    # https://launchpad.net/~ubuntuhandbook1/+archive/ubuntu/audacity
+    install_audacity: False
+
+    # Install Audio Recorder PPA and package?
+    # https://launchpad.net/~audio-recorder/+archive/ubuntu/ppa
+    install_audio_recorder: False
+
+    # Install Slimbook battery optimizer PPA and package?
+    # https://launchpad.net/~slimbook/+archive/ubuntu/slimbook
+    # This only applies to laptops
+    install_battery_optimizer: False
+
+    # Install Chrome?
+    # https://www.google.com/chrome/
+    install_chrome: False
+
+    # Install Docker?
+    # https://docs.docker.com/install/linux/docker-ce/ubuntu/
+    install_docker: False
+
+    # Install Flat Remix theme PPA and package?
+    # https://launchpad.net/~daniruiz/+archive/ubuntu/flat-remix
+    # https://drasite.com/flat-remix
+    install_flat_remix: False
+
+    # Install official KeepassXC PPA and package?
+    # https://launchpad.net/~phoerious/+archive/ubuntu/keepassxc
+    install_keepassxc: False
+
+    # Install Nemo file browser PPA and package?
+    # https://launchpad.net/~mc3man/+archive/ubuntu/bionic-noprop
+    install_nemo: False
+
+    # Install Numix theme PPA and package?
+    # https://launchpad.net/~numix/+archive/ubuntu/ppa
+    install_numix: False
+
+    # Install Peek GIF maker tool PPA and package?
+    # https://code.launchpad.net/~peek-developers/+archive/ubuntu/stable
+    install_peek: False
+
+    # Install Piper gaming mouse configurator?
+    # https://launchpad.net/~trebelnik-stefina/+archive/ubuntu/ratbag-piper
+    # https://github.com/libratbag/piper
+    install_piper: False
+
+    # Install QEMU virtualization?
+    # https://www.qemu.org/
+    install_qemu: False
+
+    # Install Slack?
+    # https://slack.com/downloads/linux
+    install_slack: False
+
+    # Install Stacer system utility PPA and package?
+    # https://launchpad.net/~oguzhaninan/+archive/ubuntu/stacer
+    install_stacer: False
+
+    # Install Steam?
+    # https://store.steampowered.com/about/
+    install_steam: False
+
+    # Install Ulauncher?
+    # https://ulauncher.io/
+    install_ulauncher: False
+
+    # Install VSCode?
+    # https://code.visualstudio.com/docs/setup/linux
+    install_vscode: False
+
+    # Install fwupd firmware updater snap package?
+    install_fwupd_snap: False
+
+    # Install okular pdf viewer snap package?
+    install_okular_snap: False
+
+    # Install vlc media player snap package?
+    install_vlc_snap: False
+
+    # Install yakyak google hangouts client snap package?
+    install_yakyak_snap: False
+
+    # Install flatpak?
+    # https://flatpak.org/
+    install_flatpak: False
+
+    # Install the App Editor flatpak package?
+    # https://github.com/donadigo/appeditor
+    install_appeditor_flatpak: False

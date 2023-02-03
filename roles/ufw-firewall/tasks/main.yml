@@ -1,0 +1,39 @@
+---
+
+#
+# ufw-firewall
+#
+# This task configures the ufw firewall if enabled.
+#
+
+# Enable firewall if the use_firewall variable is true
+- block:
+
+  - name: Enable UFW and allow all outgoing traffic
+    ufw:
+      state: enabled
+      policy: allow
+      direction: outgoing
+      logging: low
+
+  - name: Deny incoming traffic
+    ufw:
+      policy: deny
+      direction: incoming
+
+  # If allow_ssh is set to true, allow incoming ssh connections
+  - name: Allow SSH incoming connections
+    ufw:
+      rule: allow
+      name: OpenSSH
+    when: allow_ssh
+
+  # If allow_ssh is set to false, delete the OpenSSH rule
+  - name: Delete OpenSSH rule
+    ufw:
+      rule: allow
+      name: OpenSSH
+      delete: yes
+    when: not allow_ssh
+
+  when: use_firewall

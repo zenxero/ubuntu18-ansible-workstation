@@ -1,0 +1,457 @@
+---
+
+#
+# extra-repos
+#
+# This task installs extra repos and packages on the system if they are enabled in the setup-workstation playbook.
+#
+
+# Install audacity app if the install_audacity variable is true
+- block:
+
+  - name: Add Audacity PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: A0062203196CA4482DDB859E4C1CBE14852541CB
+
+  - name: Install Audacity repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/ubuntuhandbook1/audacity/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: audacity
+
+  - name: Install Audacity
+    apt:
+      name: audacity
+      state: latest
+
+  when: install_audacity
+
+# Install audio recorder app if the install_audio_recorder variable is true
+- block:
+
+  - name: Add Audio Recorder PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 42EF41ED9813B713D4F1F06D5CF12638ACF9669F
+
+  - name: Install Audio Recorder repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/audio-recorder/ppa/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: audio-recorder
+
+  - name: Install Audio Recorder
+    apt:
+      name: audio-recorder
+      state: latest
+
+  when: install_audio_recorder
+
+# Install battery optimizer app if the install_battery_optimizer variable is true
+- block:
+
+  - name: Add Battery Optimizer PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: BE80F1EEB3838E61E42091B378A22399981017FC
+
+  - name: Install Battery Optimizer repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/slimbook/slimbook/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: slimbook-battery-optimizer
+
+  - name: Install Battery Optimizer
+    apt:
+      name: slimbookbattery
+      state: latest
+
+  when: install_battery_optimizer
+
+# Install chrome if the install_chrome variable is true
+- block:
+
+  - name: Add Chrome apt key
+    apt_key:
+      url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+      state: present
+
+  - name: Install Google Chrome repo
+    apt_repository:
+      repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+      state: present
+      filename: google-chrome
+
+  - name: Install Chrome
+    apt:
+      name: google-chrome-stable
+      state: latest
+
+  when: install_chrome
+
+# Install docker if the install_docker variable is true
+- block:
+
+  - name: Add Docker apt key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Install Docker repo
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+      state: present
+      filename: docker-ce
+
+  - name: Install Docker
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - containerd.io
+      - docker-ce
+      - docker-ce-cli
+
+  when: install_docker
+
+# Install flat remix theme if the install_flat_remix variable is true
+- block:
+
+  - name: Add Flat Remix PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: BA309D7C0CBE9A2DF584AC50A074F0583066C9C9
+
+  - name: Install Flat Remix repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/daniruiz/flat-remix/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: flat-remix
+
+  - name: Install Flat Remix Theme
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - flat-remix
+      - flat-remix-gnome
+      - flat-remix-gtk
+
+  when: install_flat_remix
+
+# Install newer KeepassXC if the install_keepassxc variable is true
+- block:
+
+  - name: Add KeepassXC PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: D89C66D0E31FEA2874EBD20561922AB60068FCD6
+
+  - name: Install KeepassXC repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/phoerious/keepassxc/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: keepassxc
+
+  - name: Install KeepassXC
+    apt:
+      name: keepassxc
+      state: latest
+
+  when: install_keepassxc
+
+# Install Nemo file browser if the install_nemo variable is true
+- block:
+
+  - name: Add Nemo PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 8E51A6D660CD88D67D65221D90BD7EACED8E640A
+
+  - name: Install Nemo repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/mc3man/bionic-noprop/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: nemo
+
+  - name: Install Nemo
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - nemo
+      - nemo-fileroller
+
+  when: install_nemo
+
+# Install numix theme if the install_numix variable is true
+- block:
+
+  - name: Add Numix PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 43E076121739DEE5FB96BBED52B709720F164EEB
+
+  - name: Install Numix repo
+    apt_repository:
+      repo: "deb [arch=amd64] http://ppa.launchpad.net/numix/ppa/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: numix
+
+  - name: Install Numix
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - numix-gtk-theme
+      - numix-icon-theme-circle
+
+  when: install_numix
+
+# Install piper if the install_piper variable is true
+- block:
+
+  - name: Add Piper PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: C33263044B0DA54E86929FA999184AAECFB359B9
+
+  - name: Install Piper repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/trebelnik-stefina/ratbag-piper/ubuntu bionic {{ ansible_distribution_release }} main"
+      state: present
+      filename: piper
+
+  - name: Install Piper
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - ratbagd
+      - piper
+
+  when: install_piper
+
+# Install peek if the install_peek variable is true
+- block:
+
+  - name: Add Peek PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 8C9531299E7DF2DCF681B4999578539176BAFBC6
+
+  - name: Install Peek repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/peek-developers/stable/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: peek
+
+  - name: Install Peek
+    apt:
+      name: peek
+      state: latest
+
+  when: install_peek
+
+# Install qemu if the install_qemu variable is true
+- block:
+
+  - name: Install QEMU virtualization tools
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - qemu
+      - qemu-kvm
+      - libvirt-bin
+      - virt-manager
+      - virt-viewer
+
+  when: install_qemu
+
+# Install slack if the install_slack variable is true
+- block:
+
+  - name: Add Slack apt key
+    apt_key:
+      url: https://packagecloud.io/slacktechnologies/slack/gpgkey
+      state: present
+
+  - name: Install Slack repo
+    apt_repository:
+      repo: deb [arch=amd64] https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
+      state: present
+      filename: slack
+
+  - name: Install Slack
+    apt:
+      name: slack-desktop
+      state: latest
+
+  when: install_slack
+
+# Install stacer system utility if install_stacer variable is true
+- block:
+
+  - name: Add Stacer PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: FE2D607711EDD0FF4D069EC70F6444BB6902FCAF
+
+  - name: Install Stacer repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/oguzhaninan/stacer/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: stacer
+
+  - name: Install Stacer
+    apt:
+      name: stacer
+      state: latest
+
+  when: install_stacer
+
+# Install steam if the install_steam variable is true
+- block:
+
+  - name: Add Steam apt key
+    apt_key:
+      url: http://repo.steampowered.com/steam/signature.gpg
+      state: present
+
+  - name: Install Steam repo
+    apt_repository:
+      repo: deb [arch=amd64,i386] http://repo.steampowered.com/steam/ precise steam
+      state: present
+      filename: steam
+
+  - name: Install Steam
+    apt:
+      name: steam-installer
+      state: latest
+
+  when: install_steam
+
+# Install ulauncher if the install_ulauncher variable is true
+- block:
+
+  - name: Add Ulauncher PPA apt key
+    apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 59EBDE772980C381CA13FA59FAF1020699503176
+
+  - name: Install Ulauncher repo
+    apt_repository:
+      repo: "deb http://ppa.launchpad.net/agornostal/ulauncher/ubuntu {{ ansible_distribution_release }} main"
+      state: present
+      filename: ulauncher
+
+  - name: Install Ulauncher
+    apt:
+      name: ulauncher
+      state: latest
+
+  when: install_ulauncher
+
+# Install vscode if the install_vscode variable is true
+- block:
+
+  - name: Add VSCode apt key
+    apt_key:
+      url: https://packages.microsoft.com/keys/microsoft.asc
+      state: present
+
+  - name: Install VSCode repo
+    apt_repository:
+      repo: deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main
+      state: present
+      filename: vscode
+
+  - name: Install VSCode
+    apt:
+      name: code
+      state: latest
+
+  when: install_vscode
+
+# Install firmware update snap if install_fwupd_snap is true
+- block:
+
+  # I use the snap for the firmware update tool because it's the official way to get the newest version on Ubuntu.
+  - name: Install fwupd snap
+    snap:
+      name: fwupd
+      classic: yes
+
+  when: install_fwupd_snap
+
+# Install okular pdf viewer snap if install_okular_snap is true
+- block:
+
+  # I use the snap for okular because it allows the installation of the program without an entire
+  # KDE dependency base.
+  - name: Install okular snap
+    snap:
+      name: okular
+
+  when: install_okular_snap
+
+# Install vlc media player snap if install_vlc_snap is true
+- block:
+
+  # I use the snap for VLC because it's the official way to get the newest version of VLC on Ubuntu.
+  - name: Install okular snap
+    snap:
+      name: vlc
+
+  when: install_vlc_snap
+
+# Install yakyak google hangouts client snap if install_yakyak_snap is true
+- block:
+
+  # I use the snap for yakyak because it's the only easy way to get a hangouts desktop client on Ubuntu.
+  - name: Install yakyak snap
+    snap:
+      name: yakyak
+
+  when: install_yakyak_snap
+
+# Install flatpak and dependencies if the install_flatpak variable is true
+- block:
+
+  - name: Install flatpak and dependencies
+    apt:
+      name: "{{ packages }}"
+      state: latest
+    vars:
+      packages:
+      - flatpak
+      - gnome-software-plugin-flatpak
+      - libgranite-dev
+      - meson
+      - valac
+
+  - name: Add the flathub flatpak repository
+    flatpak_remote:
+      name: flathub
+      state: present
+      flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+
+  # Install the app editor flatpak package if the install_appeditor variable is true
+  - block:
+
+    - name: Install the App Editor flatpak
+      flatpak:
+        name: com.github.donadigo.appeditor
+        state: present
+
+    when: install_appeditor_flatpak
+
+  when: install_flatpak

@@ -1,0 +1,22 @@
+---
+
+#
+# system-config-files
+#
+# This task configures some system level files.
+#
+
+- name: Add compositor config for high refresh rate monitors
+  lineinfile:
+    path: /etc/environment
+    line: 'CLUTTER_DEFAULT_FPS={{ refresh_rate }}'
+    state: present
+  when: high_refresh
+
+- name: Configure release upgrades file
+  template:
+    src: templates/update-manager/release-upgrades.j2
+    dest: /etc/update-manager/release-upgrades
+    owner: root
+    group: root
+    mode: 0644

@@ -1,0 +1,16 @@
+---
+
+#
+# remove-packages
+#
+# This task removes packages that I don't want on my system.
+#
+
+- name: Remove packages
+  apt:
+    name: "{{ packages }}"
+    state: absent
+  vars:
+    packages:
+    - fwupd
+    - ubuntu-web-launchers

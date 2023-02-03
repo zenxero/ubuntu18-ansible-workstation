@@ -1,0 +1,19 @@
+---
+
+#
+# ssh service handler
+#
+# Restart only when changes are made.
+#
+
+- name: restart ssh
+  service:
+    name: ssh
+    state: restarted
+    enabled: yes
+
+- name: stop ssh
+  service:
+    name: ssh
+    state: stopped
+    enabled: no
